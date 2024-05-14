@@ -1,0 +1,10 @@
+{
+    "name": "PTZ Extension",
+    "description": "Control your webcam settings from Chrome!",
+    "version": "0.0.1",
+    "manifest_version": 3,
+    "options_page": "extension/options.html",
+    "action": {
+        "default_popup": "third_party/ptz_glitch/views/index.html"
+    }
+}
