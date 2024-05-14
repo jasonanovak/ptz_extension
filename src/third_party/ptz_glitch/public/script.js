@@ -41,14 +41,6 @@ cameraSelect.onchange = (_) => {
 
 };
 
-if (
-  navigator.userAgent.includes("Chrome") &&
-  "mediaDevices" in navigator &&
-  !`"pan" in navigator.mediaDevices.getSupportedConstraints()` &&
-  !("tilt" in navigator.mediaDevices.getSupportedConstraints())
-) {
-  flagWarning.style.display = "block";
-}
 
 log(navigator.userAgent);
 
@@ -186,7 +178,8 @@ function updateButtons() {
                                     "zoom",
                                     "brightness",
                                     "contrast",
-                                    "saturation"];
+                                    "saturation",
+                                    "sharpness"];
   
 
   controllableCapabilities.forEach((name) => {
@@ -262,6 +255,13 @@ function updateButtons() {
         saturationRange.max = capabilities.saturation.max;
         saturationRange.step = capabilities.saturation.step;
         saturationRange.value = settings.saturation;
+      } else if (name == "sharpness") {
+        sharpnessIncreaseButton.dataset.step = capabilities.sharpness.step;
+        sharpnessDecreaseButton.dataset.step = -capabilities.sharpness.step;
+        sharpnessRange.min = capabilities.sharpness.min;
+        sharpnessRange.max = capabilities.sharpness.max;
+        sharpnessRange.step = capabilities.sharpness.step;
+        sharpnessRange.value = settings.sharpness;
       }
     }
   });
