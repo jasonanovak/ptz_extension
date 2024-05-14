@@ -185,7 +185,8 @@ function updateButtons() {
                                     "tilt",
                                     "zoom",
                                     "brightness",
-                                    "contrast"];
+                                    "contrast",
+                                    "saturation"];
   
 
   controllableCapabilities.forEach((name) => {
@@ -254,6 +255,13 @@ function updateButtons() {
         contrastRange.max = capabilities.contrast.max;
         contrastRange.step = capabilities.contrast.step;
         contrastRange.value = settings.contrast;
+      } else if (name == "saturation") {
+        saturationIncreaseButton.dataset.step = capabilities.saturation.step;
+        saturationDecreaseButton.dataset.step = -capabilities.saturation.step;
+        saturationRange.min = capabilities.saturation.min;
+        saturationRange.max = capabilities.saturation.max;
+        saturationRange.step = capabilities.saturation.step;
+        saturationRange.value = settings.saturation;
       }
     }
   });
