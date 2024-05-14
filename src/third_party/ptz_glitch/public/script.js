@@ -180,7 +180,14 @@ function updateButtons() {
 
   log(`videoTrack.getSettings() -> ${JSON.stringify(settings)}`);
 
-  ["pan", "tilt", "zoom"].forEach((name) => {
+
+  const controllableCapabilities = ["pan",
+                                    "tilt",
+                                    "zoom",
+                                    "brightness"];
+  
+
+  controllableCapabilities.forEach((name) => {
     if (name in capabilities) {
       log(
         `videoTrack.getCapabilities().${name} -> { min: ${capabilities[name].min}, max: ${capabilities[name].max}, step: ${capabilities[name].step} }`
@@ -232,6 +239,13 @@ function updateButtons() {
         zoomRange.max = capabilities.zoom.max;
         zoomRange.step = capabilities.zoom.step;
         zoomRange.value = settings.zoom;
+      } else if (name == "brightness") {
+        brightnessIncreaseButton.dataset.step = capabilities.brightness.step;
+        brightnessDecreaseButton.dataset.step = -capabilities.brightness.step;
+        brightnessRange.min = capabilities.brightness.min;
+        brightnessRange.max = capabilities.brightness.max;
+        brightnessRange.step = capabilities.brightness.step;
+        brightnessRange.value = settings.brightness;
       }
     }
   });
