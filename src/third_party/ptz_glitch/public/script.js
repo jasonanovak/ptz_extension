@@ -180,7 +180,16 @@ function updateButtons() {
 
   log(`videoTrack.getSettings() -> ${JSON.stringify(settings)}`);
 
-  ["pan", "tilt", "zoom"].forEach((name) => {
+
+  const controllableCapabilities = ["pan",
+                                    "tilt",
+                                    "zoom",
+                                    "brightness",
+                                    "contrast",
+                                    "saturation"];
+  
+
+  controllableCapabilities.forEach((name) => {
     if (name in capabilities) {
       log(
         `videoTrack.getCapabilities().${name} -> { min: ${capabilities[name].min}, max: ${capabilities[name].max}, step: ${capabilities[name].step} }`
@@ -232,6 +241,27 @@ function updateButtons() {
         zoomRange.max = capabilities.zoom.max;
         zoomRange.step = capabilities.zoom.step;
         zoomRange.value = settings.zoom;
+      } else if (name == "brightness") {
+        brightnessIncreaseButton.dataset.step = capabilities.brightness.step;
+        brightnessDecreaseButton.dataset.step = -capabilities.brightness.step;
+        brightnessRange.min = capabilities.brightness.min;
+        brightnessRange.max = capabilities.brightness.max;
+        brightnessRange.step = capabilities.brightness.step;
+        brightnessRange.value = settings.brightness;
+      } else if (name == "contrast") {
+        contrastIncreaseButton.dataset.step = capabilities.contrast.step;
+        contrastDecreaseButton.dataset.step = -capabilities.contrast.step;
+        contrastRange.min = capabilities.contrast.min;
+        contrastRange.max = capabilities.contrast.max;
+        contrastRange.step = capabilities.contrast.step;
+        contrastRange.value = settings.contrast;
+      } else if (name == "saturation") {
+        saturationIncreaseButton.dataset.step = capabilities.saturation.step;
+        saturationDecreaseButton.dataset.step = -capabilities.saturation.step;
+        saturationRange.min = capabilities.saturation.min;
+        saturationRange.max = capabilities.saturation.max;
+        saturationRange.step = capabilities.saturation.step;
+        saturationRange.value = settings.saturation;
       }
     }
   });
