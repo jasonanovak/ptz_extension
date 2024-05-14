@@ -90,8 +90,6 @@ window.addEventListener("DOMContentLoaded",
                         { video: { pan: true, tilt: true, zoom: true } }));
 
 getUserMediaVideoButton.onclick = (_) => getUserMedia({ video: true });
-getUserMediaVideoPtzButton.onclick = (_) =>
-  getUserMedia({ video: { zoom: 400 } });
 getUserMediaVideoPanUnconstrainedAudioButton.onclick = (_) =>
   getUserMedia({ audio: true, video: { tilt: true } });
 
