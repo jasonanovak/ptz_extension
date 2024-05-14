@@ -313,40 +313,6 @@ function updateButtons() {
   }
 }
 
-/* permissions request/revoke */
-
-requestCameraPtzTrueButton.onclick = (_) =>
-  request({ name: "camera", panTiltZoom: true });
-
-async function request(permissionDescriptor) {
-  const prefix = `navigator.permissions.request(${JSON.stringify(
-    permissionDescriptor
-  )}`;
-  try {
-    await navigator.permissions.request(permissionDescriptor);
-    log(`${prefix} -> success`);
-  } catch (error) {
-    log(`⚠️ ${prefix} -> ${error.message}`);
-  }
-  populateCameras();
-}
-
-revokeCameraPtzTrueButton.onclick = (_) =>
-  revoke({ name: "camera", panTiltZoom: true });
-
-async function revoke(permissionDescriptor) {
-  const prefix = `navigator.permissions.revoke(${JSON.stringify(
-    permissionDescriptor
-  )}`;
-  try {
-    await navigator.permissions.revoke(permissionDescriptor);
-    log(`${prefix} -> success`);
-  } catch (error) {
-    log(`⚠️ ${prefix} -> ${error.message}`);
-  }
-  populateCameras();
-}
-
 /* picture-in-picture */
 
 video.onclick = async (event) => {
