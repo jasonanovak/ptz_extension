@@ -184,7 +184,8 @@ function updateButtons() {
   const controllableCapabilities = ["pan",
                                     "tilt",
                                     "zoom",
-                                    "brightness"];
+                                    "brightness",
+                                    "contrast"];
   
 
   controllableCapabilities.forEach((name) => {
@@ -246,6 +247,13 @@ function updateButtons() {
         brightnessRange.max = capabilities.brightness.max;
         brightnessRange.step = capabilities.brightness.step;
         brightnessRange.value = settings.brightness;
+      } else if (name == "contrast") {
+        contrastIncreaseButton.dataset.step = capabilities.contrast.step;
+        contrastDecreaseButton.dataset.step = -capabilities.contrast.step;
+        contrastRange.min = capabilities.contrast.min;
+        contrastRange.max = capabilities.contrast.max;
+        contrastRange.step = capabilities.contrast.step;
+        contrastRange.value = settings.contrast;
       }
     }
   });
