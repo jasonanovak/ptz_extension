@@ -36,6 +36,9 @@ if ("mediaDevices" in navigator) {
 let deviceId = "default";
 cameraSelect.onchange = (_) => {
   deviceId = cameraSelect.selectedOptions[0].id;
+  getUserMedia( 
+    { video: { pan: true, tilt: true, zoom: true } });
+
 };
 
 if (
@@ -63,7 +66,6 @@ log(navigator.userAgent);
 const monitoredPermissionDescriptors = [
   { name: "camera" },
   { name: "camera", panTiltZoom: true },
-  { name: "microphone" },
 ];
 
 monitoredPermissionDescriptors.forEach(async (permissionDescriptor) => {
@@ -90,6 +92,10 @@ monitoredPermissionDescriptors.forEach(async (permissionDescriptor) => {
     log(`⚠️ ${prefix} -> ${error.message}`);
   }
 });
+
+window.addEventListener("DOMContentLoaded", 
+                        getUserMedia( 
+                        { video: { pan: true, tilt: true, zoom: true } }));
 
 getUserMediaVideoButton.onclick = (_) => getUserMedia({ video: true });
 getUserMediaVideoPanUnconstrainedBasicButton.onclick = (_) =>
