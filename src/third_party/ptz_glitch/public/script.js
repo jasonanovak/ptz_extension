@@ -345,34 +345,6 @@ function updateMediaSession() {
   );
 }
 
-/* feature policy */
-
-if ("featurePolicy" in document) {
-  cameraFeaturePolicy.checked = document.featurePolicy.allowsFeature("camera");
-  microphoneFeaturePolicy.checked =
-    document.featurePolicy.allowsFeature("microphone");
-
-  cameraFeaturePolicy.onchange = (e) => toggleFeaturePolicy(e, "camera");
-  microphoneFeaturePolicy.onchange = (e) =>
-    toggleFeaturePolicy(e, "microphone");
-
-  function toggleFeaturePolicy(event, featurePolicyName) {
-    const params = new URLSearchParams(location.search);
-    if (event.target.checked) {
-      params.delete(featurePolicyName);
-    } else {
-      params.set(featurePolicyName, "none");
-    }
-    if (params.toString()) {
-      location.href = `${location.pathname}?${params}`;
-    } else {
-      location.href = location.pathname;
-    }
-  }
-} else {
-  cameraFeaturePolicy.disabled = true;
-  microphoneFeaturePolicy.disabled = true;
-}
 
 /* utils */
 
