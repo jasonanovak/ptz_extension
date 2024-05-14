@@ -41,14 +41,6 @@ cameraSelect.onchange = (_) => {
 
 };
 
-if (
-  navigator.userAgent.includes("Chrome") &&
-  "mediaDevices" in navigator &&
-  !`"pan" in navigator.mediaDevices.getSupportedConstraints()` &&
-  !("tilt" in navigator.mediaDevices.getSupportedConstraints())
-) {
-  flagWarning.style.display = "block";
-}
 
 log(navigator.userAgent);
 
@@ -96,14 +88,6 @@ monitoredPermissionDescriptors.forEach(async (permissionDescriptor) => {
 window.addEventListener("DOMContentLoaded", 
                         getUserMedia( 
                         { video: { pan: true, tilt: true, zoom: true } }));
-
-getUserMediaVideoButton.onclick = (_) => getUserMedia({ video: true });
-getUserMediaVideoPanUnconstrainedBasicButton.onclick = (_) =>
-  getUserMedia({ video: { pan: true } });
-getUserMediaVideoPtzButton.onclick = (_) =>
-  getUserMedia({ video: { zoom: 400 } });
-getUserMediaVideoPanUnconstrainedAudioButton.onclick = (_) =>
-  getUserMedia({ audio: true, video: { tilt: true } });
 
 async function getUserMedia(constraints) {
   const sanitizedConstraints = { ...constraints };
@@ -186,7 +170,8 @@ function updateButtons() {
                                     "zoom",
                                     "brightness",
                                     "contrast",
-                                    "saturation"];
+                                    "saturation",
+                                    "sharpness"];
   
 
   controllableCapabilities.forEach((name) => {
@@ -262,6 +247,13 @@ function updateButtons() {
         saturationRange.max = capabilities.saturation.max;
         saturationRange.step = capabilities.saturation.step;
         saturationRange.value = settings.saturation;
+      } else if (name == "sharpness") {
+        sharpnessIncreaseButton.dataset.step = capabilities.sharpness.step;
+        sharpnessDecreaseButton.dataset.step = -capabilities.sharpness.step;
+        sharpnessRange.min = capabilities.sharpness.min;
+        sharpnessRange.max = capabilities.sharpness.max;
+        sharpnessRange.step = capabilities.sharpness.step;
+        sharpnessRange.value = settings.sharpness;
       }
     }
   });
@@ -321,40 +313,6 @@ function updateButtons() {
   }
 }
 
-/* permissions request/revoke */
-
-requestCameraPtzTrueButton.onclick = (_) =>
-  request({ name: "camera", panTiltZoom: true });
-
-async function request(permissionDescriptor) {
-  const prefix = `navigator.permissions.request(${JSON.stringify(
-    permissionDescriptor
-  )}`;
-  try {
-    await navigator.permissions.request(permissionDescriptor);
-    log(`${prefix} -> success`);
-  } catch (error) {
-    log(`⚠️ ${prefix} -> ${error.message}`);
-  }
-  populateCameras();
-}
-
-revokeCameraPtzTrueButton.onclick = (_) =>
-  revoke({ name: "camera", panTiltZoom: true });
-
-async function revoke(permissionDescriptor) {
-  const prefix = `navigator.permissions.revoke(${JSON.stringify(
-    permissionDescriptor
-  )}`;
-  try {
-    await navigator.permissions.revoke(permissionDescriptor);
-    log(`${prefix} -> success`);
-  } catch (error) {
-    log(`⚠️ ${prefix} -> ${error.message}`);
-  }
-  populateCameras();
-}
-
 /* picture-in-picture */
 
 video.onclick = async (event) => {
@@ -387,34 +345,6 @@ function updateMediaSession() {
   );
 }
 
-/* feature policy */
-
-if ("featurePolicy" in document) {
-  cameraFeaturePolicy.checked = document.featurePolicy.allowsFeature("camera");
-  microphoneFeaturePolicy.checked =
-    document.featurePolicy.allowsFeature("microphone");
-
-  cameraFeaturePolicy.onchange = (e) => toggleFeaturePolicy(e, "camera");
-  microphoneFeaturePolicy.onchange = (e) =>
-    toggleFeaturePolicy(e, "microphone");
-
-  function toggleFeaturePolicy(event, featurePolicyName) {
-    const params = new URLSearchParams(location.search);
-    if (event.target.checked) {
-      params.delete(featurePolicyName);
-    } else {
-      params.set(featurePolicyName, "none");
-    }
-    if (params.toString()) {
-      location.href = `${location.pathname}?${params}`;
-    } else {
-      location.href = location.pathname;
-    }
-  }
-} else {
-  cameraFeaturePolicy.disabled = true;
-  microphoneFeaturePolicy.disabled = true;
-}
 
 /* utils */
 
