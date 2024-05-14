@@ -90,8 +90,6 @@ window.addEventListener("DOMContentLoaded",
                         { video: { pan: true, tilt: true, zoom: true } }));
 
 getUserMediaVideoButton.onclick = (_) => getUserMedia({ video: true });
-getUserMediaVideoPanUnconstrainedAudioButton.onclick = (_) =>
-  getUserMedia({ audio: true, video: { tilt: true } });
 
 async function getUserMedia(constraints) {
   const sanitizedConstraints = { ...constraints };
