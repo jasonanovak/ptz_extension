@@ -124,8 +124,21 @@ async function getUserMedia(constraints) {
 
     video.srcObject = stream;
     document.body.classList.toggle("hidden", false);
+
+    var errorMessageDiv = document.getElementById("errorMessageDiv");
+    errorMessageDiv.style.visibility = 'hidden';
+    errorMessageDiv.style.display = 'none';
+
+
+
     populateCameras();
   } catch (error) {
+
+    var errorMessageDiv = document.getElementById("errorMessageDiv");
+    errorMessageDiv.style.visibility = 'visible';
+    errorMessageDiv.style.display = 'block';
+
+
     document.body.classList.toggle("hidden", false);
     log(
       `⚠️ ${prefix} -> ${error.name}${
