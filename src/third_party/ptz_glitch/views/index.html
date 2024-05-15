@@ -7,6 +7,21 @@
     <script src="../public/script.js" defer></script>
   </head>
   <body>
+    <div id = "errorMessageDiv" style="display: none; visibility:hidden">
+      <h1>
+      If you're seeing this, then, PTZ Extension got an error when trying to
+      access the camera. This probably means that the Extension doesn't have
+      permission to the camera.<br><br>
+      Fix this by:<br>
+      <ul>
+        <li>Clicking on the Extension icon (the puzzle piece in the top right</li>
+        <li>Clicking "Manage Extensions"</li>
+        <li>Click the "Details" box under "PTZ Extension"</li>
+        <li>Click "Site settings"</li>
+        <li>Change the drop down for Camera to "Allow"</li>
+      </ul>
+    </h1>
+    </div>
     <div id="preview">
       <video id="video" autoplay muted width="380" height="140"></video>
       <div class="buttons">
@@ -105,7 +120,6 @@
       pan–tilt–zoom
       <small id="small">🌱</small>
     </h1>
-
     <p>Pick a camera or use the default one</p>
     <select id="cameraSelect" disabled> </select>
 
