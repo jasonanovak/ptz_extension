@@ -1,7 +1,7 @@
 {
     "name": "PTZ Extension",
     "description": "Control your webcam settings from Chrome!",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "manifest_version": 3,
     "options_page": "extension/options.html",
     "action": {
@@ -12,5 +12,8 @@
         "32": "icons/icon-32.png",
         "48": "icons/icon-48.png",
         "128": "icons/icon-128.png"
+    },
+    "background": {
+        "service_worker": "extension/background.js"
     }
 }
