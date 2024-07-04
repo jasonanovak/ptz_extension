@@ -310,7 +310,14 @@ function updateButtons() {
 
   async function onRangeChange(event) {
     const name = event.target.dataset.name;
-    const constraint = parseFloat(event.target.value);
+    var constraint = parseFloat(event.target.value);
+    // The left/right is relative to the camera not what the camera is
+    // pointed at (e.g. the user). So to have the camera move left / right
+    // relative to the user's frame of reference, this needs to be 
+    // inversed.
+    if (name == "pan"){
+      constraint = constraint * -1
+    }
     const constraints = { advanced: [{}] };
     constraints.advanced[0][name] = constraint.toFixed(1);
     const prefix = `videoTrack.applyConstraints({"advanced": [{"${name}": ${constraint.toFixed(
