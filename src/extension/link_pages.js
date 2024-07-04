@@ -27,4 +27,14 @@ document.addEventListener('DOMContentLoaded', function() {
             })
         }
     
+        el = document.getElementById('extensionsOptionsLink');
+    
+        if (el) {
+            el.addEventListener('click',  function() {
+                chrome.tabs.create({ url: '../../../extension/options.html',
+                                     active: true });
+            })         
+        }
+
+
     });
