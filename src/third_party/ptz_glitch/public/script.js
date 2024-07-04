@@ -219,8 +219,12 @@ function updateButtons() {
         range.oninput = onRangeChange;
       });
       if (name == "pan") {
-        panLeftButton.dataset.step = -capabilities.pan.step;
-        panRightButton.dataset.step = capabilities.pan.step;
+        // The left/right is relative to the camera not what the camera is
+        // pointed at (e.g. the user). So to have the camera move left / right
+        // relative to the user's frame of reference, this needs to be 
+        // inversed.
+        panLeftButton.dataset.step = capabilities.pan.step;
+        panRightButton.dataset.step = -capabilities.pan.step;
         panRange.min = capabilities.pan.min;
         panRange.max = capabilities.pan.max;
         panRange.step = capabilities.pan.step;
